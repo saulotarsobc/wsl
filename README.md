@@ -1,6 +1,79 @@
-# ⚡ Guia: Terminal Bonito e Produtivo com Zsh no WSL2 (Ubuntu)
+# Configuração do WSL para desenvolvimento.
 
 > Transforme seu terminal em uma ferramenta poderosa para desenvolvimento web, com autocompletar, cores e estilo.
+
+---
+
+## Instalação do WSL
+
+1. Abra o PowerShell como administrador e execute:
+
+```powershell
+# Habilitar o WSL (Precisa de acesso de administrador e reiniciar o PC)
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart;
+# Habilitar a Plataforma de Máquina Virtual (requerida para WSL 2)
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart;
+# Baixar o kernel do WSL 2
+Invoke-WebRequest -Uri https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -OutFile wsl_update_x64.msi;
+Start-Process msiexec.exe -Wait -ArgumentList '/I wsl_update_x64.msi /quiet /norestart';
+# Definir o WSL 2 como padrão
+wsl --set-default-version 2;
+```
+
+2. Intale o `Ubuntu-26.04`
+
+```bash
+wsl --install -d Ubuntu-26.04;
+```
+
+3. Abra o Ubuntu, crie um usuário e senha.
+4. Atualize os pacotes:
+
+```bash
+sudo apt update && sudo apt upgrade -y;
+```
+
+5. Verifique a versão do WSL:
+
+> Siga as instruções para configurar o WSL e o Ubuntu, depois volte aqui para personalizar seu terminal com Zsh e Oh My Zsh!
+
+---
+
+## Docker no WSL
+
+### Instalação do Docker
+
+Acesse [Instalar o Docker Engine no Ubuntu](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script)
+
+O Docker oferece um script de conveniência em https://get.docker.com/ para instalar o Docker em ambientes de desenvolvimento de forma não interativa. O script de conveniência não é recomendado para ambientes de produção, mas é útil para criar um script de provisionamento personalizado para suas necessidades. Consulte também as etapas de instalação usando o repositório para saber mais sobre como instalar usando o repositório de pacotes. O código-fonte do script é aberto e pode ser encontrado no docker-installrepositório no GitHub .
+
+Sempre examine os scripts baixados da internet antes de executá-los localmente. Antes de instalar, familiarize-se com os riscos e limitações potenciais do script.
+
+- O script requer privilégios rootde administrador sudopara ser executado.
+- O script tenta detectar sua distribuição e versão do Linux e configurar seu sistema de gerenciamento de pacotes para você.
+- O script não permite personalizar a maioria dos parâmetros de instalação.
+- O script instala dependências e recomendações sem pedir confirmação. Isso pode instalar um grande número de pacotes, dependendo da configuração atual do seu computador.
+- Por padrão, o script instala a versão estável mais recente do Docker, containerd e runc. Ao usar este script para provisionar uma máquina, isso pode resultar em atualizações inesperadas de versões principais do Docker. Sempre teste as atualizações em um ambiente de teste antes de implantá-las em seus sistemas de produção.
+- O script não foi projetado para atualizar uma instalação existente do Docker. Ao usar o script para atualizar uma instalação existente, as dependências podem não ser atualizadas para a versão esperada, resultando em versões desatualizadas.
+
+> [TIP] Visualize as etapas do script antes de executá-lo. Você pode executar o script com a opção `--dry-run` para saber quais etapas ele executará ao ser invocado:
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh;
+sudo sh get-docker.sh;
+```
+
+### Permissões do Docker sem sudo
+
+> Supondo que o nome do user seja `saulo`:
+
+```bash
+sudo usermod -aG docker saulo;
+```
+
+Agora, para usar o Docker sem `sudo`, faça logout e login novamente ou reinicie o terminal.
+
+---
 
 ---
 
@@ -9,14 +82,14 @@
 Atualize os pacotes e instale o Zsh:
 
 ```bash
-sudo apt update
-sudo apt install zsh -y
+sudo apt update;
+sudo apt install zsh -y;
 ```
 
 Verifique a instalação:
 
 ```bash
-zsh --version
+zsh --version;
 ```
 
 Defina o Zsh como shell padrão:
@@ -55,16 +128,6 @@ ZSH_THEME="robbyrussell"
 ```
 
 Altere para outro tema se quiser, por exemplo:
-
-```properties
-ZSH_THEME="powerlevel10k/powerlevel10k"
-```
-
-Depois salve (`Ctrl + O`, `Enter`, `Ctrl + X`) e recarregue:
-
-```bash
-source ~/.zshrc
-```
 
 ```properties
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -155,15 +218,13 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#aaaaaa'  # Cinza claro
 Ative o menu de autocomplete com navegação pelas setas:
 
 ```bash
+# Ativa o sistema de autocomplete
 autoload -Uz compinit && compinit
+# Ativa o menu interativo
 zstyle ':completion:*' menu select
+# Completar insensível a maiúsculas
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 ```
-
-Essas opções permitem:
-
-- Autocomplete com **menu interativo**
-- Completar **insensível a maiúsculas/minúsculas**
 
 ---
 
@@ -210,12 +271,6 @@ source ~/.zshrc
 - Autocomplete inteligente e colorido
 - Ícones e fontes bonitas
 - Atalhos para desenvolvimento web (git, npm, docker…)
-
----
-
-## 🧩 Exemplo Visual
-
-_(adicione aqui um print do seu terminal personalizado!)_
 
 ---
 
