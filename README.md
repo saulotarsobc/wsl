@@ -73,6 +73,13 @@ sudo usermod -aG docker saulo;
 
 Agora, para usar o Docker sem `sudo`, faça logout e login novamente ou reinicie o terminal.
 
+### Logar no Docker Hub
+
+```bash
+docker login;
+# Basta seguir as instruções para autenticar com seu usuário do Docker Hub.
+```
+
 ---
 
 ---
@@ -265,12 +272,67 @@ source ~/.zshrc
 
 ---
 
+## NodeJS
+
+## Instale o NodeJS usando o NVM (Node Version Manager):
+
+Acesse [https://nodejs.org/en/download](https://nodejs.org/en/download) e siga as instruções para instalar o NVM no Linux.
+
+```bash
+# Download and install nvm:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+# Download and install Node.js:
+nvm install 24
+# Verify the Node.js version:
+node -v # Should print "v24.16.0".
+# Verify npm version:
+npm -v # Should print "11.13.0".
+```
+
+---
+
 ## 💻 Resultado Final
 
 - Tema limpo e rápido
 - Autocomplete inteligente e colorido
 - Ícones e fontes bonitas
 - Atalhos para desenvolvimento web (git, npm, docker…)
+
+---
+
+## Powershell
+
+### Instalar o PowerShell no WSL
+
+> Powershell é o terminal nativo do Windows, mas é possível personalizá-lo com temas e plugins usando o [Oh My Posh](https://ohmyposh.dev/).
+
+Acesse [https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu](https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu) para instalar o PowerShell no WSL.
+
+---
+
+## Git e GitHub
+
+### Configurar o Git
+
+```bash
+git config --global user.name "Seu Nome";
+git config --global user.email "meu@email.com";
+```
+
+### Instalar o GitHub CLI
+
+```bash
+sudo apt install gh -y;
+```
+
+### Logue no GitHub CLI:
+
+```bash
+gh auth login;
+# Basta seguir as instruções para autenticar via navegador.
+```
 
 ---
 
