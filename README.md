@@ -336,4 +336,26 @@ gh auth login;
 
 ---
 
+## Golang
+
+### Instalar o Go
+
+Acesse [https://go.dev/doc/install](https://go.dev/doc/install) para baixar a versão mais recente do Go para Linux.
+
+```bash
+GO_VERSION=1.26.3 # Substitua pela versão mais recente
+# Baixe o arquivo tar.gz do Go (exemplo para Go 1.24.0)
+curl -O https://go.dev/dl/go$GO_VERSION.linux-amd64.tar.gz;
+# Extraia o arquivo para /usr/local
+sudo tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz;
+# Adicione o Go ao PATH (adicione esta linha ao final do ~/.zshrc)
+export PATH=$PATH:/usr/local/go/bin;
+# Recarregue o shell
+source ~/.zshrc; # Ou `source ~/.bashrc` se estiver usando bash
+# Verifique a instalação
+go version; # Deve mostrar "go version go$GO_VERSION linux/amd64"
+```
+
+---
+
 Feito com ❤️ por [Saulo Costa](https://github.com/saulotarsobc)
